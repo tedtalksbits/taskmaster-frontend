@@ -7,8 +7,19 @@ const Login = () => {
   const navigate = useNavigate();
   const [loginData, setLoginData] = useState({ username: '', password: '' });
   const { login } = useAuth();
+
+  const loginFn = login();
+
   const handleLogin = () => {
-    login(loginData);
+    loginFn.mutate(loginData, {
+      onSuccess: (data) => {
+        console.log(data);
+        // navigate('/dashboard');
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

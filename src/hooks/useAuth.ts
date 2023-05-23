@@ -33,17 +33,19 @@ export const useAuth = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const login = useMutation(
-    (credentials: { username: string; password: string }) =>
-      fetch(BASE_URL + '/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify(credentials),
-      }).then((res) => res.json())
-  );
+  function login() {
+    return useMutation({
+      mutationFn: (credentials: { username: string; password: string }) =>
+        fetch(BASE_URL + '/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify(credentials),
+        }),
+    });
+  }
 
   const register = useMutation(
     (credentials: { username: string; password: string }) =>
@@ -58,7 +60,7 @@ export const useAuth = () => {
   );
 
   const logout = useMutation(() =>
-    fetch(BASE_URL + '/logout', {
+    fetch(BASE_URL + '/auth/logout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -94,7 +96,7 @@ export const useAuth = () => {
     // isLoading: currentUser.isLoading,
     // isError: currentUser.isError,
     // error: currentUser.error,
-    login: login.mutate,
+    login,
     logout: logout.mutate,
     register: register.mutate,
   };

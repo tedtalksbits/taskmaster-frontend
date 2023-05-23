@@ -2,7 +2,7 @@ import { ColorScheme } from '@mantine/core';
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 export const useColorScheme = () => {
-  const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
+  const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
 
   const toggleColorScheme = (value?: ColorScheme) => {
     const nextColorScheme =
