@@ -2,12 +2,21 @@ import { useEffect, useState } from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 import { useAuth } from '../src/hooks/useAuth';
 const RouteProtection = () => {
-  const { isAuthenticated } = useAuth();
+  const { useWhoAmI } = useAuth();
 
-  if (!isAuthenticated) {
-    return <Navigate to='/login' />;
-  }
-  return <Outlet />;
+  const whoAmIQuery = useWhoAmI();
+
+  return (
+    <>
+      {whoAmIQuery.isSuccess ? (
+        <Outlet />
+      ) : whoAmIQuery.isError ? (
+        <Navigate to='/login' />
+      ) : (
+        <div>Loading...</div>
+      )}
+    </>
+  );
 };
 
 export default RouteProtection;

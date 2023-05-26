@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, AppShell } from '@mantine/core';
 import AppBar from '../../components/AppBar';
 const Dashboard = () => {
